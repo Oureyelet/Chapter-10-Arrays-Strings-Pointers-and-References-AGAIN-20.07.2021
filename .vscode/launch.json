@@ -9,7 +9,17 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": [],
+            "args": [
+                "--std",
+                "c++17",
+                "c++20",
+                "-I",
+                "${fileDirname}",
+                "-g",
+                "${fileDirname}/*.cpp",
+                "-o",
+                "${workspaceFolder}/out/${fileBasenameNoExtension}.o"
+              ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
