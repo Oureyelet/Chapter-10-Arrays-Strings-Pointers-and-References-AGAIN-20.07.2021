@@ -12,6 +12,21 @@ enum StudentNames
     max_students // 5
 };
 
+namespace Animals
+{
+    enum Animals
+    {
+        chicken, 
+        dog,
+        cat,
+        elephant,
+        duck, 
+        snake,
+
+        max_Animal,
+    };
+}
+
 int main()
 {
     std::cout << "Hello World\n";
@@ -114,6 +129,43 @@ int main()
     */
     int array[]{ 1, 1, 2, 3, 5, 8, 13, 21, 23 };
     std::cout << "The array has: " << std::size(array) << " elements\n";
+
+
+    std::cout << std::endl;
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "Indexing an array out of range" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    /*
+    Rule:
+
+    When using arrays, ensure that your indices are valid for the range of your array!
+    */
+
+
+    std::cout << std::endl;
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "Quiz time !" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    /*
+    1) Declare an array to hold the high temperature (to the nearest tenth of a degree) for each day 
+    of a year (assume 365 days in a year). Initialize the array with a value of 0.0 for each day.
+
+    2) Set up an enum with the names of the following animals: chicken, dog, cat, elephant, duck, 
+    and snake. Put the enum in a namespace. Define an array with an element for each of these animals, 
+    and use an initializer list to initialize each element to hold the number of legs that animal has.
+
+    Write a main function that prints the number of legs an elephant has, using the enumerator.
+    */
+    double temp[365]{ 0.0 };
+
+    int legs[Animals::max_Animal]{2, 4, 4, 4, 2};
+    std::cout << "Elephant has " << legs[Animals::elephant] << " legs.\n";
+
+
 
 
     return 0;
