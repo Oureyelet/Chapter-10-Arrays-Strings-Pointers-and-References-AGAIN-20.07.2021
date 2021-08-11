@@ -187,7 +187,7 @@ int main()
     Modify the following program so that instead of having maxScore hold the largest score directly, 
     a variable named maxIndex holds the index of the largest score. 
     */
-    constexpr int scores_Quiz[]{ 84, 92, 76, 81, 56 };
+    constexpr int scores_Quiz[]{ 84, 92, 767, 81, 56, 34 };
  
     int maxScore_Quiz{ 0 }; // Assume our largest score is 0 to start
     int maxIndex_Quiz{ 0 };
@@ -198,10 +198,13 @@ int main()
         if (scores_Quiz[student_Quiz] > maxScore_Quiz)
         {
             maxScore_Quiz = scores_Quiz[student_Quiz];
+            maxIndex_Quiz = student_Quiz;
         }
     }
  
     std::cout << "The best score was " << maxScore_Quiz << '\n';
+    std::cout << "Index of the largest score is " << maxIndex_Quiz << '\n';
+
 
 
     return 0;
