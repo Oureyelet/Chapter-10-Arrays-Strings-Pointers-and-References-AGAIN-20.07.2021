@@ -51,22 +51,27 @@ int main()
     */
 
     int array_swap[]{ 30, 50, 20, 4, 10, 40, 33, 2, 22 };
-    constexpr int lenght{ static_cast<int>(std::size(array_swap)) };
-    int start_index = array_swap[0];
+    constexpr int lenght{ static_cast<int>(std::size(array_swap)) }; // equal = 9
 
-
-    // Step through each element of the array
-	// (except the last one, which will already be sorted by the time we get there)
-    for(int count{ 0 }; count < lenght-1; ++count)
+    //lenght '-1' beacouse the array index is counting from '0' not from '1';
+    for(int startIndex{ 0 }; startIndex < lenght-1; ++startIndex)
     {
-        if(array_swap[count] < start_index)
-        {
-            start_index = array_swap[count];
-            std::swap(array_swap[count], start_index);
-        }
-    }
-    std::cout << "smallest is: " << start_index << '\n';
+        int smallestIndex{ startIndex };
 
+        for(int currentIndex{ startIndex+1 }; currentIndex < lenght; ++currentIndex)
+        {
+            if(array_swap[currentIndex] < array_swap[smallestIndex])
+                smallestIndex = currentIndex;
+        }
+        std::swap(array_swap[startIndex], array_swap[smallestIndex]);
+    }
+
+    std::cout << "Our array ofter sorting: ";
+    for(int count{ 0 }; count < lenght; ++count)
+    {
+        std::cout << array_swap[count] << ' ';
+    }
+    std::cout << std::endl;
    
     std::cout << std::endl;
     /////////////////////////////////////////////////////////////////////////////
@@ -157,8 +162,24 @@ int main()
     Hint: When comparing pairs of elements, be careful of your array’s range.
     */
     int array_Question3[]{ 6, 3, 2, 9, 7, 1, 5, 4, 8 };
+    constexpr int lenght_Question3{ static_cast<int>(std::size(array_Question3)) };
 
-    for(int count{})
+    for(int count_out{ 0 }; count_out < lenght_Question3; ++count_out)
+    {
+        for(int count{ 0 }; count < lenght_Question3; ++count)
+        {
+            if(array_Question3[count] > array_Question3[count+1])
+            {
+                std::swap(array_Question3[count], array_Question3[count+1]);
+            }
+        }
+    }
+    
+    for(int count{ 0 }; count < lenght_Question3; ++count)
+    {
+        std::cout << array_Question3[count] << ' ';
+    }
+    std::cout << std::endl;
 
     return 0;
 }
