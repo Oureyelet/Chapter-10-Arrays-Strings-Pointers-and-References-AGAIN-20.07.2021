@@ -161,12 +161,12 @@ int main()
     as many times as there are numbers in our array to guarantee that the whole array is sorted.
     Hint: When comparing pairs of elements, be careful of your array’s range.
     */
-    int array_Question3[]{ 6, 3, 2, 9, 7, 1, 5, 4, 8 };
+    int array_Question3[]{ 6, 3, 2, 9, 7, 1, 5, 4, 8, 11 };
     constexpr int lenght_Question3{ static_cast<int>(std::size(array_Question3)) };
 
-    for(int count_out{ 0 }; count_out < lenght_Question3; ++count_out)
+    for(int count_out{ 0 }; count_out < lenght_Question3-1; ++count_out)
     {
-        for(int count{ 0 }; count < lenght_Question3; ++count)
+        for(int count{ 0 }; count < lenght_Question3-1; ++count)
         {
             if(array_Question3[count] > array_Question3[count+1])
             {
@@ -180,6 +180,60 @@ int main()
         std::cout << array_Question3[count] << ' ';
     }
     std::cout << std::endl;
+
+
+    /*
+    Question #4
+
+    Add two optimizations to the bubble sort algorithm you wrote in the previous quiz question:
+
+    1. Notice how with each iteration of bubble sort, the biggest number remaining gets bubbled to the 
+    end of the array. After the first iteration, the last array element is sorted. After the second 
+    iteration, the second to last array element is sorted too. And so on… With each iteration, 
+    we don’t need to recheck elements that we know are already sorted. Change your loop to not re-check 
+    elements that are already sorted.
+
+    2. If we go through an entire iteration without doing a swap, then we know the array must already be 
+    sorted. Implement a check to determine whether any swaps were made this iteration, and if not, 
+    terminate the loop early. If the loop was terminated early, print on which iteration the sort 
+    ended early.
+
+    Your output should match this:
+
+    Early termination on iteration 6
+    1 2 3 4 5 6 7 8 9
+    */
+    int array_Question4[]{6, 3, 2, 9, 7, 1, 5, 4, 8};
+    constexpr int lenght_Question4{ static_cast<int>(std::size(array_Question4)) };
+
+    for(int count_out{ 0 }; count_out < lenght_Question4-1; ++count_out)
+    {
+        for(int count{ 0 }; count < lenght_Question4-count_out-1; ++count)
+        {
+            int x{ 0 };
+            if(array_Question4[count] > array_Question4[count+1])
+            {
+                std::swap(array_Question4[count], array_Question4[count+1]);
+            }
+            else
+            {
+                ++x;
+
+                if(x == lenght_Question4-count_out-1)
+                {
+                    std::cout << "Early termination on iteration " << count_out << '\n';
+                    break;
+                }
+            }
+        }
+    }
+    //std::cout << "Early termination on iteration " << count_out << '\n';
+    for(int count{ 0 }; count < lenght_Question4; ++count)
+    {
+        std::cout << array_Question4[count] << ' ';
+    }
+    std::cout << std::endl;
+
 
     return 0;
 }
