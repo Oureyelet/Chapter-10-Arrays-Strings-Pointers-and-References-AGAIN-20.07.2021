@@ -208,26 +208,27 @@ int main()
 
     for(int count_out{ 0 }; count_out < lenght_Question4-1; ++count_out)
     {
-        for(int count{ 0 }; count < lenght_Question4-count_out-1; ++count)
+        int endOfArrayIndex{ lenght_Question4 - count_out };
+
+        bool swapped{ false };
+
+        for(int count{ 0 }; count < endOfArrayIndex-1; ++count)
         {
-            int x{ 0 };
             if(array_Question4[count] > array_Question4[count+1])
             {
                 std::swap(array_Question4[count], array_Question4[count+1]);
-            }
-            else
-            {
-                ++x;
-
-                if(x == lenght_Question4-count_out-1)
-                {
-                    std::cout << "Early termination on iteration " << count_out << '\n';
-                    break;
-                }
+                swapped = true;
             }
         }
+
+        if(!swapped)
+        {
+            std::cout << "Early termination on iteration " << count_out+1 << '\n';
+
+            break;
+        }
     }
-    //std::cout << "Early termination on iteration " << count_out << '\n';
+
     for(int count{ 0 }; count < lenght_Question4; ++count)
     {
         std::cout << array_Question4[count] << ' ';
