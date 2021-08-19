@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iterator> // std::size
+#include <cstring> // std::strcpy, std::strlen(), 
 
 int main()
 {
@@ -93,8 +94,59 @@ int main()
     std::cout << "/////////////////////////////////////////////////////" << '\n';
     /////////////////////////////////////////////////////////////////////////////
     /*
-    
+    C++ provides many functions to manipulate C-style strings as part of the <cstring> header. 
+    Here are a few of the most useful:
     */
+
+    /*
+    strcpy() allows you to copy a string to another string. 
+    More commonly, this is used to assign a value to a string:
+    */
+    char source[]{ "Copy this!" };
+    char dest[50];// note that if the length of dest is only 5 chars this cause overflow results!
+    std::strcpy(dest, source);
+    std::cout << dest << '\n'; //print "Copy this!"
+
+    /*
+    Another useful function is the strlen() function, which returns the length of the C-style string 
+    (without the null terminator).
+    */
+    char name_1[20]{ "Alex" }; // only use 5 characters (4 letters + null terminator)
+    std::cout << "My name is: " << name_1  << '\n';
+    std::cout << name_1 << " has " << std::strlen(name_1) << " letters.\n";
+    std::cout << name_1 << " has " << std::size(name_1) << " indexs in the array.\n";
+
+
+    std::cout << std::endl;
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "RANDOM QUIZ !" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    /*
+    How many spaces you typed ?
+    */
+
+    char rodzina[255];
+    std::cout << "Enter what you want: ";
+    std::cin.getline(rodzina, std::size(rodzina));
+
+    int lenghtRodzinka{ static_cast<int>(std::strlen(rodzina)) };
+    int spaces{ 0 };
+
+    for(int index{ 0 }; index < lenghtRodzinka; ++index)
+    {
+        if(rodzina[index] == ' ')
+        {
+            ++spaces;
+        }
+        else
+        {
+            std::cout << "You did not enter spaces.";
+            break;
+        }
+    }
+    std::cout << "You have: " << spaces << " spaces\n";
 
     return 0;
 }
