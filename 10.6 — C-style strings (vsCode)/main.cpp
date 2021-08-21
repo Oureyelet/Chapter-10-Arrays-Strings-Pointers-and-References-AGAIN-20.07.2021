@@ -140,13 +140,15 @@ int main()
         {
             ++spaces;
         }
-        else
-        {
-            std::cout << "You did not enter spaces.";
-            break;
-        }
     }
-    std::cout << "You have: " << spaces << " spaces\n";
+    if(spaces > 0)
+    {
+        std::cout << "You have: " << spaces << " spaces\n";
+    }
+    else if(spaces == 0)
+    {
+        std::cout << "You did not enter spaces.";
+    }
 
     return 0;
 }
