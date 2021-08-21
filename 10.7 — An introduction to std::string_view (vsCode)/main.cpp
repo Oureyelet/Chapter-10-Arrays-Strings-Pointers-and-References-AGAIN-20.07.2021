@@ -2,6 +2,11 @@
 #include <string> //std::string
 #include <string_view> // std::string_view
 #include <iterator> // srd::size()
+#include <cstring> // std::strlen()
+#include "first.h"
+
+
+
 
 int main()
 {
@@ -130,7 +135,104 @@ int main()
     to mark the end of the string. Rather, it knows where the string ends because it keeps 
     track of its length.
     */
+    // No null-terminator.
+    char vowels[]{ 'a', 'e', 'i', 'o', 'u' };
+
+    // vowels isn't null-terminated. We need to pass the length manually.
+    // Because vowels is an array, we can use std::size to get its length.
+    std::string_view str2{ vowels, std::size(vowels) };
+
+    std::cout << str2 << '\n';// This is safe. std::cout knows how to print std::string_views.
+
+
+    std::cout << std::endl;
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "Ownership issues" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    /*
+    Being only a view, a std::string_view‘s lifetime is independent of that of the string it is viewing. 
+    If the viewed string goes out of scope, std::string_view has nothing to observe and accessing 
+    it causes undefined behavior. The string that a std::string_view is viewing has to have 
+    been created somewhere else. It might be a string literal that lives as long as the program 
+    does or it was created by a std::string, in which case the string lives until the std::string 
+    decides to destroy it or the std::string dies. std::string_view can’t create any strings on its own, 
+    because it’s just a view.
+    */
+    std::string_view question{ askForName() };
+
+    std::cout << "Your name is: " <<  question << '\n';
+
+
+    /*
+    Warning
+
+    Make sure that the underlying string viewed with a std::string_view does not go out of scope 
+    and isn’t modified while using the std::string_view.
+    */
+
+
+    std::cout << std::endl;
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "Converting a std::string_view to a std::string" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    /*
+    An std::string_view will not implicitly convert to a std::string, but can be explicitly converted:
+    */
+    std::string_view sv{ "balloon" };
+
+    sv.remove_suffix(3);
+
+    //print(sv); // compile error: won't implicitly convert
+
+    std::string str3{ sv };//ok
+
+    print(str3);//ok
+
+    print(static_cast<std::string>(sv));//ok
+
+
+    std::cout << std::endl;
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "Converting a std::string_view to a C-style string" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    /*
+    Some old functions (such as the old strlen function) still expect C-style strings. 
+    To convert a std::string_view to a C-style string, we can do so by first converting to a std::string:
+    */
+    //for more info go to: https://www.learncpp.com/cpp-tutorial/an-introduction-to-stdstring_view/
+
+
+    std::cout << std::endl;
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "Opening the window (kinda) via the data() function" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    /*
+    Warning
+
+    Only use std::string_view::data() if the std::string_view‘s view hasn’t been modified 
+    and the string being viewed is null-terminated. Using std::string_view::data() of a 
+    non-null-terminated string can cause undefined behavior.
+    */
+
+
+    std::cout << std::endl;
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "Incomplete implementation" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    /*
     
+    */
+
 
 
 
