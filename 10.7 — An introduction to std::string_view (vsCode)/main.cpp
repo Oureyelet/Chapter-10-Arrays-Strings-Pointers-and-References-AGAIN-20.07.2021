@@ -230,9 +230,19 @@ int main()
     std::cout << "/////////////////////////////////////////////////////" << '\n';
     /////////////////////////////////////////////////////////////////////////////
     /*
-    
+    Being a relatively recent feature, std::string_view isn’t implemented as well as it could be.
+    */
+    std::string s{ "Hello Yo !"};
+    std::string_view v{ "World" };
+
+    /*
+    don't work !
+
+    std::cout << (s + v);
+    std::cout << (v + s);
     */
 
+    std::cout << (s + v.dat)
 
 
 
