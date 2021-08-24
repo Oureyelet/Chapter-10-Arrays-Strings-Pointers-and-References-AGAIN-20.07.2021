@@ -232,7 +232,7 @@ int main()
     /*
     Being a relatively recent feature, std::string_view isn’t implemented as well as it could be.
     */
-    std::string s{ "Hello Yo !"};
+    std::string s{ "Hello"};
     std::string_view v{ "World" };
 
     /*
@@ -242,7 +242,18 @@ int main()
     std::cout << (v + s);
     */
 
-    std::cout << (s + v.dat)
+    // Potentially unsafe, or not what we want, because we're treating
+    // the std::string_view as a C-style string.
+    std::cout << (s + v.data()) << '\n';
+    std::cout << (v.data() + s) << '\n';
+
+    // Ok, but ugly and wasteful because we have to construct a new std::string.
+    std::cout << (s + std::string{ v }) << '\n';
+    std::cout << (std::string{ v } + s) << '\n';
+    std::cout << ( s + static_cast<std::string>(v) ) << '\n';
+    std::cout << ( static_cast<std::string>(v) + s) << '\n';
+    
+    
 
 
 
