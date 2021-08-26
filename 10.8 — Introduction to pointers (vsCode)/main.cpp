@@ -286,7 +286,63 @@ int main()
     */
 
 
-    
+    std::cout << std::endl;
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "Quiz Time" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    /*
+    Question #1
+    What values does this program print? Assume a short is 2 bytes, and a 32-bit machine.
+    */
+
+        short value{ 7 }; // &value = 0012FF60
+        short otherValue{ 3 }; // &otherValue = 0012FF54
+
+        short* ptr{ &value };//0012FF60
+
+        std::cout << &value << '\n'; // print address 0012FF60
+        std::cout << value << '\n'; // print value 7
+        std::cout << ptr << '\n'; //print address 0012FF60
+        std::cout << *ptr << '\n'; //print value 7
+        std::cout << '\n';
+
+        *ptr = 9; // we changed short value for 9 now/
+
+        std::cout << &value << '\n';// print address 0012FF60
+        std::cout << value << '\n';// print value 9
+        std::cout << ptr << '\n';//print address 0012FF60
+        std::cout << *ptr  << '\n';// print value 9
+        std::cout << '\n';
+
+        ptr = &otherValue; // 0012FF54
+
+        std::cout << &otherValue << '\n'; // print address 0012FF54
+        std::cout << otherValue << '\n'; //print value 3
+        std::cout << ptr << '\n';// print address 0012FF54
+        std::cout << *ptr << '\n'; //print value 3
+        std::cout << '\n';
+
+        std::cout << sizeof(ptr) << '\n';
+        std::cout << sizeof(*ptr) << '\n';
+
+
+    /*
+    Question #2
+    What’s wrong with this snippet of code? 
+    */
+    short value_quiz{ 45 };
+
+    short* ptr_quiz{ &value_quiz }; // declare a pointer and initialize with address of value
+    //*ptr_quiz = &value_quiz; // assign address of value to ptr
+
+    //my answer: when we assing "*ptr_quiz =" we should assaing with value not with address.
+    //should be:
+    ptr_quiz = &otherValue;
+    //or:
+    *ptr_quiz = 7;
+
 
 
     return 0;
