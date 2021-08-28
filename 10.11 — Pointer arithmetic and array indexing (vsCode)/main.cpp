@@ -1,5 +1,7 @@
 #include <iostream>
-#include <iterator> // for std::size()
+#include <iterator> // for std::size(), std::begin, std::end
+#include <algorithm> // for std::count_it
+#include <cstdlib> // for system("pause")
 #include "functions.h"
 
 int main()
@@ -100,13 +102,122 @@ int main()
     int arrayLenght{ static_cast<int>(std::size(name)) };
     int ourVowel{ 0 };
 
-    for(char* ptr{ name }; name != arrayLenght; ++name)
+    for(char* ptr{ name }; ptr != (name + arrayLenght); ++ptr)
     {
-        if(isVowel)
-            ++ourVowel
-        else
+        if(isVowel(*ptr))
+            ++ourVowel;
     }
 
+    std::cout << name << " has " << ourVowel << " vowels\n";
+    /*
+    How does it work? This program uses a pointer to step through each of the elements in an array. 
+    Remember that arrays decay to pointers to the first element of the array. So by assigning ptr to name, ptr will also 
+    point to the first element of the array. Indirection through ptr is performed for each element when we call isVowel(*ptr), 
+    and if the element is a vowel, numVowels is incremented. Then the for loop uses the ++ operator to advance the pointer to 
+    the next character in the array. The for loop terminates when all characters have been examined.
+    */
+
+
+    /*
+    Because counting elements is common, the algorithms library offers std::count_if, which counts elements that fulfill a condition. 
+    We can replace the for-loop with a call to std::count_if.
+    */
+    char surname[]{ "Kacperscy" };
+
+    // walk through all the elements of name and count how many calls to isVowel return true
+    auto numVowels{ std::count_if(std::begin(surname), std::end(surname), isVowel) };
+
+    std::cout << surname << " has " << numVowels << " vowels.\n";
+
+
+    /*
+    std::begin returns an iterator (pointer) to the first element, while std::end returns an iterator to the element that 
+    would be one after the last. The iterator returned by std::end is only used as a marker, accessing it causes undefined 
+    behavior, because it doesn’t point to a real element.
+
+    std::begin and std::end only work on arrays with a known size. If the array decayed to a pointer, we can calculate begin 
+    and end manually.
+    */
+    auto calculate_manually{ std::count_if( surname, surname + 9, isVowel ) };
+    std::cout << calculate_manually << '\n';
+    /*
+    Note that we’re calculating name + nameLength, not name + nameLength - 1, because we don’t want the last element, 
+    but the pseudo-element one past the last.
+
+    Calculating begin and end of an array like this works for all algorithms that need a begin and end argument.
+    */
+
+
+    std::cout << std::endl;
+    /////////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////////" << '\n';
+    std::cout << "QUIZ TIME !" << '\n';
+    std::cout << "/////////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////////
+    /*
+    Question #1
+    Why does the following code work?
+
+    #include <iostream>
+
+    int main()
+    {
+        int arr[]{ 1, 2, 3 };
+
+        std::cout << 2[arr] << '\n';
+
+        return 0;
+    }
+
+    answer is:
+    The subscript operator ([]) is identical to an addition and an indirection, the operands can be swapped.
+
+    arr[2]
+    // same as
+    *(arr + 2)
+    // same as
+    *(2 + arr)
+    // same as
+    2[arr]
+
+    It’s an interesting observation, but don’t use this syntax in real code. This only works for the built-in subscript operator. 
+    You’ll learn about types with custom operators where this doesn’t work later. 
+    */
+
+    /*
+    Write a function named find that takes a pointer to the beginning and a pointer to the end (1 element past the last) of an array, as well as a value. The function should search for the given value and return a pointer to the first element with that value, or the end pointer if no element was found. The following program should run:
+
+    #include <iostream>
+    #include <iterator>
+
+    // ...
+
+    int main()
+    {
+        int arr[]{ 2, 5, 4, 10, 8, 20, 16, 40 };
+
+        // Search for the first element with value 20.
+        int* found{ find(std::begin(arr), std::end(arr), 20) };
+
+        // If an element with value 20 was found, print it.
+        if (found != std::end(arr))
+        {
+            std::cout << *found << '\n';
+        }
+
+        return 0;
+    }
+    */
+    int arr[]{ 2, 5, 4, 10, 8, 20, 16, 40 };
+
+    // Search for the first element with value 20.
+    int* found{ find(std::begin(arr), std::end(arr), 20) };
+
+    // If an element with value 20 was found, print it.
+    if (found != std::end(arr))
+    {
+        std::cout << *found << '\n';
+    }
 
     return 0;
 }
