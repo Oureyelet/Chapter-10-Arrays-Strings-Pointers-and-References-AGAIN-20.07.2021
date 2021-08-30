@@ -28,7 +28,15 @@ bool isVowel(char ch)
 
 int* find(int* begin, int* end, int value)
 {
-   return std::count_if (begin, end, value);
+    for(int* ptr{ begin }; ptr != end; ++ptr)
+    {
+        if(*ptr == value)
+        {
+            return ptr;
+        }
+    }
+
+    return end;
 }
 
 #endif // and FUNC_H

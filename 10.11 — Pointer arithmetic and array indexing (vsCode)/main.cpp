@@ -1,7 +1,6 @@
 #include <iostream>
 #include <iterator> // for std::size(), std::begin, std::end
-#include <algorithm> // for std::count_it
-#include <cstdlib> // for system("pause")
+#include <algorithm> // for std::count_it, std::find
 #include "functions.h"
 
 int main()
@@ -217,6 +216,19 @@ int main()
     if (found != std::end(arr))
     {
         std::cout << *found << '\n';
+    }
+
+    /*
+    My onw task:
+    */
+
+    int my_array[]{ 2, 5, 6, 3, 45, 78, 34, 77, 3434, 89 };
+
+    auto my_found{ std::find(std::begin(my_array), std::end(my_array), 77) };
+
+    if(my_found != std::end(my_array))
+    {
+        std::cout << *my_found << '\n';
     }
 
     return 0;
