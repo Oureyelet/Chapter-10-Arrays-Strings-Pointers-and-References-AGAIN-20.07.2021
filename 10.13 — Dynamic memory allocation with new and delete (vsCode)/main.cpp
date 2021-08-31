@@ -198,10 +198,72 @@ int main()
     std::cout << "/////////////////////////////////////////////////////" << '\n';
     /////////////////////////////////////////////////////////////////////////////
     /*
+    When requesting memory from the operating system, in rare circumstances, the operating system may not have any memory to 
+    grant the request with.
+
+    By default, if new fails, a bad_alloc exception is thrown. If this exception isn’t properly handled (and it won’t be, 
+    since we haven’t covered exceptions or exception handling yet), the program will simply terminate (crash) with an unhandled 
+    exception error.
+
+    In many cases, having new throw an exception (or having your program crash) is undesirable, so there’s an alternate 
+    form of new that can be used instead to tell new to return a null pointer if memory can’t be allocated. This is done by 
+    adding the constant std::nothrow between the new keyword and the allocation type:
+    */
+    int* our_new_int{ new (std::nothrow) int }; // value will be set to a null pointer if the integer allocation fails
+
+    /*
+    In the above example, if new fails to allocate memory, it will return a null pointer instead of the address of the 
+    allocated memory.
+
+    Note that if you then attempt indirection through this pointer, undefined behavior will result (most likely, your program 
+    will crash). Consequently, the best practice is to check all memory requests to ensure they actually succeeded before using 
+    the allocated memory.
+    */
+    int* our_second{ new (std::nothrow) nwe{} };// ask for an integer's worth of memory
+
+    if(!our_second)
+    {
+        // Do error handling here
+        std::cout << "Could not allocate memory\n";
+    }
+    //Because asking new for memory only fails rarely (and almost never in a dev environment), it’s common to forget to do 
+    //this check!
+
+
+    std::cout << std::endl;
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "Null pointers and dynamic memory allocation" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    /*
+    https://www.learncpp.com/cpp-tutorial/dynamic-memory-allocation-with-new-and-delete/
+    */
+
+
+    std::cout << std::endl;
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "Memory leaks" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    /*
     
     */
 
 
+
+
+
+
+
+
+
+
+
+
+
+    
 
     return 0;
 }
