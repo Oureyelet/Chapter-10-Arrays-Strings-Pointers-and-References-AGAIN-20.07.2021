@@ -56,9 +56,24 @@ int main()
 
     While this is great 99% of the time, it can lead to unexpected results. Consider the following case:
     */
+    char c{ 'Q' };
+    std::cout << &c << '\n';
 
+    /*
+    In this case, the programmer is intending to print the address of variable c. However, &c has type char*, 
+    so std::cout tries to print this as a string! On the author’s machine, this printed:
 
+    Qj`UUUU
 
+    Why did it do this? Well, it assumed &c (which has type char*) was a string. So it printed the ‘Q’, and then kept going. 
+    Next in memory was a bunch of garbage. Eventually, it ran into some memory holding a 0 value, which it interpreted as a 
+    null terminator, so it stopped. What you see may be different depending on what’s in memory after variable c.
+
+    This case is somewhat unlikely to occur in real-life (as you’re not likely to actually want to print memory addresses), 
+    but it is illustrative of how things work under the hood, and how programs can inadvertently go off the rails.
+    */
+
+    
 
 
 
