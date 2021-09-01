@@ -1,5 +1,10 @@
 #include <iostream>
 
+void doSomething()
+{
+    int* ptr_3{ new int{} };
+}
+
 int main()
 {
     std::cout << std::endl;
@@ -248,11 +253,77 @@ int main()
     std::cout << "/////////////////////////////////////////////////////" << '\n';
     /////////////////////////////////////////////////////////////////////////////
     /*
-    
+    Dynamically allocated memory stays allocated until it is explicitly deallocated or until the program ends 
+    (and the operating system cleans it up, assuming your operating system does that). However, the pointers used to hold 
+    dynamically allocated memory addresses follow the normal scoping rules for local variables. This mismatch can create 
+    interesting problems.
+
+    Consider the following function:
+    */
+    doSomething(); // look above main();
+
+    /*
+    This function allocates an integer dynamically, but never frees it using delete. Because pointers variables are just 
+    normal variables, when the function ends, ptr will go out of scope. And because ptr is the only variable holding the 
+    address of the dynamically allocated integer, when ptr is destroyed there are no more references to the dynamically 
+    allocated memory. This means the program has now “lost” the address of the dynamically allocated memory. As a result, 
+    this dynamically allocated integer can not be deleted.
+    */
+
+    /*
+    This is called a memory leak. Memory leaks happen when your program loses the address of some bit of dynamically allocated 
+    memory before giving it back to the operating system. When this happens, your program can’t delete the dynamically allocated 
+    memory, because it no longer knows where it is. The operating system also can’t use this memory, because that memory is 
+    considered to be still in use by your program.
+
+    Memory leaks eat up free memory while the program is running, making less memory available not only to this program, 
+    but to other programs as well. Programs with severe memory leak problems can eat all the available memory, causing the 
+    entire machine to run slowly or even crash. Only after your program terminates is the operating system able to clean 
+    up and “reclaim” all leaked memory.
+
+    Although memory leaks can result from a pointer going out of scope, there are other ways that memory leaks can result. 
+    For example, a memory leak can occur if a pointer holding the address of the dynamically allocated memory is assigned 
+    another value:
+    */
+    int value{ 5 };
+    int* ptr_7{ new int{} };// allocate memory
+    ptr_7 = &value// old address lost, memory leak results
+
+    //This can be fixed by deleting the pointer before reassigning it:
+
+    int value_x{ 5 };
+    int* ptr_7_x{ new int{} };// allocate memory
+    delete ptr_7_x;// return memory back to operating system
+    ptr_7_x = &value_x;// old address lost, memory leak results
+
+    //Relatedly, it is also possible to get a memory leak via double-allocation:
+
+    int* ptr_8{ new int{} };
+    ptr_8 = new int{};
+    /*
+    The address returned from the second allocation overwrites the address of the first allocation. Consequently, 
+    the first allocation becomes a memory leak!
+
+    Similarly, this can be avoided by ensuring you delete the pointer before reassigning.
     */
 
 
+    std::cout << std::endl;
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "Conclusion" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    /*
+    Operators new and delete allow us to dynamically allocate single variables for our programs.
 
+    Dynamically allocated memory has dynamic duration and will stay allocated until you deallocate it or the 
+    program terminates.
+
+    Be careful not to perform indirection through dangling or null pointers.
+
+    In the next lesson, we’ll take a look at using new and delete to allocate and delete arrays.
+    */
 
 
 
