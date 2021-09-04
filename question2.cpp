@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+#include <string> // std::getline
 #include <iomanip> //for std::ws
 #include <algorithm> // for std::sort
 #include <limits> // for std::numeric_limits
@@ -26,6 +26,18 @@ void enterNames(std::string* names, int lenght)
     {
         std::cout << "Enter name #" << (count+1) << ": ";
         std::getline( std::cin >> std::ws, names[count] );
+
+        
+            for(int i{ 0 }; i < names[count].size(); ++i)
+            {
+                if(islower(names[0].[0]))
+                {
+                    
+                }
+
+            }
+        
+
     }
 }
 
@@ -43,7 +55,6 @@ void printNames(std::string* names, int lenght)
 
 int main()
 {
-    /*
     int lenght{ howMany() };
 
     // Allocate an array to hold the names
@@ -57,24 +68,13 @@ int main()
     printNames(names, lenght);
 
     delete[] names;
-    */
+    
 
     //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    //char text{};
-    //std::string_view next{ "This is next string " };
-    //std::getline( std::cin >> std::ws, str );
-
-    //std::cout << str << text << next << '\n';
-
-    //std::transform(str.begin(), str.end(), str.begin(), toupper);
-
-    //std::cout << str << '\n';
-    char str[]{ "Helloo" };
+    
 
     
-    std::tolower(str[0]);
-    std::cout << "We changed it..." << str[0] <<  '\n';
     
 
 
