@@ -13,31 +13,24 @@ int howMany()
     int how_many{};
     std::cin >> how_many;
 
+    // Ignore the line feed that was left by std::cin.
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     return how_many;
 }
 
 // Asks user to enter all the names
 void enterNames(std::string* names, int lenght)
 {
-    // Ignore the line feed that was left by std::cin.
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
     for(int count{ 0 }; count != lenght; ++count)
     {
         std::cout << "Enter name #" << (count+1) << ": ";
         std::getline( std::cin >> std::ws, names[count] );
 
-        
-            for(int i{ 0 }; i < names[count].size(); ++i)
-            {
-                if(islower(names[0].[0]))
-                {
-                    
-                }
-
-            }
-        
-
+        if(islower(names[count][0]))
+        {
+            names[count][0] = toupper(names[count][0]);
+        }
     }
 }
 
@@ -55,6 +48,7 @@ void printNames(std::string* names, int lenght)
 
 int main()
 {
+    
     int lenght{ howMany() };
 
     // Allocate an array to hold the names
@@ -70,9 +64,6 @@ int main()
     delete[] names;
     
 
-    //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    
 
     
     
