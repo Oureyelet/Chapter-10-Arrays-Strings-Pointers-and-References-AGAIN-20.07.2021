@@ -51,16 +51,17 @@ void printNames(std::string* names, int lenght)
     {
         std::cout << "Name #" << (count+1) << ": ";
 
-        if(names[count].length() == 3)
-        {
-            for(int i{ 2 }; i >= 0; --i)
+        //if(names[count].length() == 3)
+        //{
+
+            
+            for(int i{ static_cast<int>(names[count].length()) }; i >= 0; --i)
             {
                 std::cout << names[count][i];
             }
-        }
 
-        std::cout << '\n';
-        
+            std::cout << '\n';
+        //}
     }
 }
 
