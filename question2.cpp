@@ -31,14 +31,12 @@ void enterNames(std::string* names, int lenght)
         {
             names[count][0] = toupper(names[count][0]);
         }
-
-        for(int i{ 0 }; i != lenght; ++i)
+        for(int i{ 0 }; i < names[count].size(); ++i)
         {
-
-            if(isspace( names[count][i+1] ))
+            if( isspace(names[count][i-1]))
             {
                 names[count][i] = toupper(names[count][i]);
-            }
+            } 
         }
     }
 }
