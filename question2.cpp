@@ -49,7 +49,13 @@ void printNames(std::string* names, int lenght)
 
     for(int count{ 0 }; count != lenght; ++count)
     {
-        std::cout << "Name #" << (count+1) << ": " << names[count] << '\n';
+        int tree{ 3 };
+
+        if(names[count].length() == 3)
+        {
+            std::cout << "Name #" << (count+1) << ": " << names[count] << '\n';
+        }
+
     }
 }
 
