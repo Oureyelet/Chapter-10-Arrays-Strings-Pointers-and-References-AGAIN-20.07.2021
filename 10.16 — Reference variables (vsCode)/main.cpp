@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstddef> // std::size_t
+#include <iterator> // std::size
 
 // A function prototypes:
 void changeN(int& ref); 
@@ -306,13 +308,13 @@ int main()
     indirection through it when accessed (references are usually implemented internally by the compiler using pointers). 
     Thus given the following:
     */
-    int value_a{ 5 };
-    int* const ptr_value_a{ &value_a };
-    int& ref_value_a{ value_a };
+    int value_a_1{ 5 };
+    int* const ptr_value_a_1{ &value_a_1 };
+    int& ref_value_a_11{ value_a_1 };
 
     //*ptr_value_a and ref_value_a evaluate identically. As a result, the following two statements produce the same effect:
-    *ptr_value_a = 5;
-    ref_value_a = 5;
+    *ptr_value_a_1 = 5;
+    ref_value_a_11 = 5;
     /*
     Because references must be initialized to valid objects (cannot be null) and can not be changed once set, references are 
     generally much safer to use than pointers (since there’s no risk of indirection through a null pointer). However, 
@@ -372,3 +374,4 @@ void printElements( int (&arr)[4] )
         std::cout << arr[i] << '\n';
     }
 } 
+
