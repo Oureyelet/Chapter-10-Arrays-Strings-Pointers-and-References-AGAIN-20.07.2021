@@ -301,9 +301,41 @@ int main()
     std::cout << "References vs pointers" << '\n';
     std::cout << "/////////////////////////////////////////////////////" << '\n';
     /////////////////////////////////////////////////////////////////////////////
+    /*
+    References and pointers have an interesting relationship -- a reference acts like a pointer that implicitly performs 
+    indirection through it when accessed (references are usually implemented internally by the compiler using pointers). 
+    Thus given the following:
+    */
+    int value_a{ 5 };
+    int* const ptr_value_a{ &value_a };
+    int& ref_value_a{ value_a };
+
+    //*ptr_value_a and ref_value_a evaluate identically. As a result, the following two statements produce the same effect:
+    *ptr_value_a = 5;
+    ref_value_a = 5;
+    /*
+    Because references must be initialized to valid objects (cannot be null) and can not be changed once set, references are 
+    generally much safer to use than pointers (since there’s no risk of indirection through a null pointer). However, 
+    they are also a bit more limited in functionality accordingly.
+
+    If a given task can be solved with either a reference or a pointer, the reference should generally be preferred. 
+    Pointers should only be used in situations where references are not sufficient (such as dynamically allocating memory).
+    */
 
 
+    std::cout << std::endl;
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "Summary" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    /*
+    References allow us to define aliases to other objects or values. References to non-const values can only be 
+    initialized with non-const l-values. References can not be reassigned once initialized.
 
+    References are most often used as function parameters when we either want to modify the value of the argument, or 
+    when we want to avoid making an expensive copy of the argument.
+    */
 
 
 
