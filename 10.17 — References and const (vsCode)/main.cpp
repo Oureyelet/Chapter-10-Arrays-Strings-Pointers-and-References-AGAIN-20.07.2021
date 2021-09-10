@@ -11,8 +11,9 @@ struct ArrayView
     const int* apples{};
     std::size_t lenght{};
 };
+ArrayView array;
 
-void fn(int (&array)[ArrayView::lenght])
+void fn(const ArrayView& array)
 {
     for(std::size_t i{ 0 }; i != array.lenght; ++i)
     {
@@ -146,11 +147,10 @@ int main()
     Which of the following types should be passed by value, which by const reference? You can assume the function that 
     takes these types as parameters doesn’t modify them.
     */
-    ArrayView arrayView;
    
     int array[3]{};
 
-    fn( array, std::size(array) );
+    fn({ array, std::size(array) });
 
 
 
