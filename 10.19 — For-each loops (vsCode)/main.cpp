@@ -136,7 +136,33 @@ int main()
     /*
     Here’s the example at the top of the lesson rewritten using a for each loop:
     */
-    const int our_scores[]{  }
+    const int our_scores[]{ 84, 92, 76, 81, 56 };
+    int max_Scores{ 0 };// keep track of our largest score
+
+    for(auto score : our_scores)// iterate over array scores, assigning each value in turn to variable score
+    {
+        if( score > max_Scores )
+        {
+            max_Scores = score;
+        }
+    }
+    std::cout << "The best score was " << max_Scores << '\n';
+    /*
+    Note that in this example, we no longer have to manually subscript the array or get its size. 
+    We can access the array element directly through variable score. The array has to have size information. 
+    An array that decayed to a pointer cannot be used in a for-each loop.
+    */
+
+    int array_A[]{ 1, 3, 5 };
+
+    int* ptr_arrayA{ array_A };
+
+    std::cout << ptr_arrayA << '\n'; // print address of
+    std::cout << *ptr_arrayA << '\n';
+    std::cout << &ptr_arrayA << '\n';
+    std::cout << array_A << '\n';
+    std::cout << &array_A << '\n';
+    std::cout << *array_A << '\n';
 
 
     return 0;

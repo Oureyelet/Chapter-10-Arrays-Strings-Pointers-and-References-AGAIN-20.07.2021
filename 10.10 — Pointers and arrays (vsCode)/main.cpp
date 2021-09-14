@@ -39,7 +39,7 @@ int main()
     std::cout << "Element 0 has address: " << &array[0] << '\n';
 
     // print the value of the pointer the array decays to
-    std::cout << "The array decays to a pointer holding address: " << array << '\n';
+    std::cout << "The array decays to a pointer holding address: " << array[0] << '\n';
 
     // Indirection through an array returns the first element (element 0)
     std::cout << *array << '\n';// print 9
