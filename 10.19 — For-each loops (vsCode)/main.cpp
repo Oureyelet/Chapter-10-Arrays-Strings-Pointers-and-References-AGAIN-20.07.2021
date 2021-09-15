@@ -1,6 +1,20 @@
 #include <iostream>
 #include <iterator> // for std::size()
 #include <string> // std::string
+#include <vector> // for std::vector 
+
+int sumArray(const int array[])// array is a pointer
+{
+    int sum{ 0 };
+/*
+    for(auto number : array) // compile error, the size of array isn't known
+    {
+        sum += number;
+    }
+*/
+
+    return sum;
+}
 
 
 int main()
@@ -157,12 +171,93 @@ int main()
 
     int* ptr_arrayA{ array_A };
 
-    std::cout << ptr_arrayA << '\n'; // print address of
-    std::cout << *ptr_arrayA << '\n';
-    std::cout << &ptr_arrayA << '\n';
-    std::cout << array_A << '\n';
-    std::cout << &array_A << '\n';
-    std::cout << *array_A << '\n';
+    std::cout << ptr_arrayA << '\n'; // print address 0x7fffffffd684
+    std::cout << *ptr_arrayA << '\n'; // print first index of array
+    std::cout << &ptr_arrayA << '\n';// print addres 0x7fffffffd5f0
+    std::cout << array_A << '\n';// print 0x7fffffffd684
+    std::cout << &array_A << '\n';//print 0x7fffffffd684
+    std::cout << *array_A << '\n';// print first index of array
+
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "For-each loops and non-arrays" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    For-each loops don’t only work with fixed arrays, they work with many kinds of list-like structures, 
+    such as vectors (e.g. std::vector), linked lists, trees, and maps. We haven’t covered any of these yet, 
+    so don’t worry if you don’t know what these are. Just remember that for each loops provide a flexible and generic 
+    way to iterate through more than just arrays.
+    */
+    std::vector fibonaci{ 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89 };// note use of std::vector here rather than a fixed array
+    // Before C++17
+    // std::vector<int> fibonacci{ 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89 };
+
+    for(auto& number : fibonaci)
+    {
+        std::cout << number << ' ';
+    }
+    std::cout << std::endl;
+
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "For-each doesn’t work with pointers to an array" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    In order to iterate through the array, for-each needs to know how big the array is, which means knowing the array size. 
+    Because arrays that have decayed into a pointer do not know their size, for-each loops will not work with them!
+    */
+    constexpr int array_tt[]{ 9, 7, 5, 3, 1 };
+
+    //std::cout << sumArray(array_tt) << '\n'; // array decays into a pointer here
+
+    //Similarly, dynamic arrays won’t work with for-each loops for the same reason.
+
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Can I get the index of the current element?" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    For-each loops do not provide a direct way to get the array index of the current element. This is because many of the 
+    structures that for-each loops can be used with (such as linked lists) are not directly indexable!
+
+    Since C++20, range-based for-loops can be used with an init-statement just like the init-statement in if-statements. 
+    We can use the init-statement to create a manual index counter without polluting the function in which the 
+    for-loop is placed.
+
+    The init-statement is placed right before the loop variable:
+
+    for (init-statement; element_declaration : array)
+    statement;
+
+    In the following code, we have two arrays which are correlated by index. For example, the student with the name at 
+    names[3] has a score of scores[3]. Whenever a student with a new high score is found, we print their name and 
+    difference in points to the previous high score.
+    */
+    std::string names2[]{ "Alex", "Betty", "Caroline", "Dave", "Emily" };
+    constexpr int scores2[]{ 84, 92, 76, 81, 56 };
+    int maxScore2{ 0 };
+
+    for(int i{ 0 }; auto number : scores2)
+    {
+        if( number > maxScore2 )
+        {
+            std::cout << names2[i] << " beat the previous best score of " << maxScore2 << " by " << 
+            (number - maxScore2) << " points!\n";
+            maxScore2 = number;
+        }
+        ++i;
+    }
+    std::cout << "The best score was " << maxScore2 << '\n';
+
 
 
     return 0;
