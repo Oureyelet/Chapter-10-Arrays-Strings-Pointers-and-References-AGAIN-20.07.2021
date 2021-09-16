@@ -311,23 +311,24 @@ int main()
     std::cout << "Enter a name: ";
     std::cin >> user_input;
 
-    for(int i{ 0 }; auto& index : name_Q)
-    {
+    bool check{ false };
 
-        if(name_Q[i] == user_input)
+    for(auto& index : name_Q)
+    {
+        if(index == user_input)
         {
-            std::cout << user_input <<  " was found." << '\n';
-            break;
+            check = true;
         }
-        else
-        {
-            std::cout << user_input << " was not found." << '\n';
-            
-        }
-        ++i;
     }
 
-
+    if(check != false)
+    {
+        std::cout << user_input <<  " was found." << '\n';
+    }
+    else
+    {
+        std::cout << user_input << " was not found." << '\n';
+    }
 
 
     return 0;
