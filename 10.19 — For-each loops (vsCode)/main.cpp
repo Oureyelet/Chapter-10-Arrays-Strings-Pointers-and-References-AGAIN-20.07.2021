@@ -1,9 +1,10 @@
 #include <iostream>
 #include <iterator> // for std::size()
 #include <string> // std::string
-#include <vector> // for std::vector 
+#include <vector> // for std::vector
+#include <string_view> // for std::string_view
 
-int sumArray(const int array[])// array is a pointer
+int sumArray(const int array[])// array is a pointer here
 {
     int sum{ 0 };
 /*
@@ -209,7 +210,7 @@ int main()
     std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
     //////////////////////////////////////////////////////////////////////////////////////////
     /*
-    In order to iterate through the array, for-each needs to know how big the array is, which means knowing the array size. 
+    In order to iterate through the array, for-each loop needs to know how big the array is, which means knowing the array size. 
     Because arrays that have decayed into a pointer do not know their size, for-each loops will not work with them!
     */
     constexpr int array_tt[]{ 9, 7, 5, 3, 1 };
@@ -257,6 +258,75 @@ int main()
         ++i;
     }
     std::cout << "The best score was " << maxScore2 << '\n';
+    /*
+    The int i{ 0 }; is the init-statement, it only gets executed once when the loop starts. At the end of each iteration, 
+    we increment i, similar to a normal for-loop. However, if we were to use continue inside the loop, the ++i would get 
+    skipped, leading to unexpected results. If you use continue, you need to make sure that i gets incremented before the 
+    continue is encountered.
+
+    Before C++20, the index variable i had to be declared outside of the loop, which could lead to name conflicts when we 
+    wanted to define another variable named i later in the function.
+    */
+
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Conclusion" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    For-each loops provide a superior syntax for iterating through an array when we need to access all of the array 
+    elements in forwards sequential order. It should be preferred over the standard for loop in the cases where it can be used. 
+    To prevent making copies of each element, the element declaration should ideally be a reference.
+    */
+
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Quiz time" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Question #1
+
+    Declare a fixed array with the following names: Alex, Betty, Caroline, Dave, Emily, Fred, Greg, and Holly. 
+    Ask the user to enter a name. Use a for each loop to see if the name the user entered is in the array.
+
+    Sample output:
+
+    Enter a name: Betty
+    Betty was found.
+
+    Enter a name: Megatron
+    Megatron was not found.
+
+    Hint: Use std::string_view as your array type.
+    */
+    constexpr std::string_view name_Q[]{ "Alex", "Betty", "Caroline", "Dave", "Emily", "Fred", "Greg", "Holly" };
+
+    std::string user_input{};
+
+    std::cout << "Enter a name: ";
+    std::cin >> user_input;
+
+    for(int i{ 0 }; auto& index : name_Q)
+    {
+
+        if(name_Q[i] == user_input)
+        {
+            std::cout << user_input <<  " was found." << '\n';
+            break;
+        }
+        else
+        {
+            std::cout << user_input << " was not found." << '\n';
+            
+        }
+        ++i;
+    }
+
 
 
 
