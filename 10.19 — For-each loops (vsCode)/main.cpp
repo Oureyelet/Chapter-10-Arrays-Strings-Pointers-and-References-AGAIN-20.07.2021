@@ -321,7 +321,7 @@ int main()
         }
     }
 
-    if(check != false)
+    if(check)
     {
         std::cout << user_input <<  " was found." << '\n';
     }
