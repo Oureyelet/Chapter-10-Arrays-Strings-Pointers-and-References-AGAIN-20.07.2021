@@ -7,6 +7,17 @@ void printLenght(const std::array<double, 5>& myArray)
     std::cout << "Lenght: " << myArray.size() << '\n';
 }
 
+// printArray2 is a template function
+template<typename T, std::size_t size>// parameterize the element type and size
+void printArray2(const std::array<T, size>& myArray)
+{
+    for(auto element : myArray)
+    {
+        std::cout << element << ' ';
+    }
+    std::cout << '\n';
+}
+
 int main()
 {
     std::cout << std::endl;
@@ -200,8 +211,84 @@ int main()
     */
 
     /*
-    
+    The downside is that this limits our function to only handling arrays of this specific type and length. But what if we 
+    want to have our function handle arrays of different element types or lengths? We’d have to create a copy of the function 
+    for each different element type and/or array length we want to use. That’s a lot of duplication.
+
+    Fortunately, we can have C++ do this for us, using templates. We can create a template function that parameterizes part 
+    or all of the type information, and then C++ will use that template to create “real” functions (with actual types) as needed.
     */
+    std::array myArray14{ 9.0, 7.2, 5.4, 3.6, 1.8 };
+    printArray2(myArray14);
+
+    std::array myArray15{ 9.0, 7.2, 5.4, 3.6, 1.8, 1.2, 0.7 };
+    printArray2(myArray15);
+
+    /*
+    Related content:
+
+    We cover function templates in lesson 8.13 -- Function templates. 
+    */
+
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Manually indexing std::array via size_type" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Pop quiz: What’s wrong with the following code?
+    
+    #include <iostream>
+    #include <array>
+
+    int main()
+    {
+    std::array myArray { 7, 3, 1, 9, 5 };
+
+    // Iterate through the array and print the value of the elements
+    for (int i{ 0 }; i < myArray.size(); ++i)
+        std::cout << myArray[i] << ' ';
+
+    std::cout << '\n';
+
+    return 0;
+}
+
+    */
+    
+    /*
+    The answer is that there’s a likely signed/unsigned mismatch in this code! Due to a curious decision, the size() 
+    function and array index parameter to operator[] use a type called size_type, which is defined by the C++ standard as 
+    an unsigned integral type. Our loop counter/index (variable i) is a signed int. Therefore both the comparison 
+    i < myArray.size() and the array index myArray[i] have type mismatches.
+
+    Interestingly enough, size_type isn’t a global type (like int or std::size_t). Rather, it’s defined inside the 
+    definition of std::array (C++ allows nested types). This means when we want to use size_type, we have to prefix it 
+    with the full array type (think of std::array acting as a namespace in this regard). In our above example, 
+    the fully-prefixed type of “size_type” is std::array<int, 5>::size_type!
+
+    Therefore, the correct way to write the above code is as follows:
+    for (std::array<int, 5>::size_type i{ 0 }; i < myArray.size(); ++i)
+
+    That’s not very readable. Fortunately, std::array::size_type is just an alias for std::size_t, so we can use that instead.
+    for (std::size_t i{ 0 }; i < myArray.size(); ++i)
+    */
+
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Array of struct" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Of course std::array isn’t limited to numbers as elements. Every type that can be used in a regular array can be used 
+    in a std::array.
+    */
+
+
 
     return 0;
 }
