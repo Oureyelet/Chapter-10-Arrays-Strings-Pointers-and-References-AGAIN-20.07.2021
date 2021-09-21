@@ -287,6 +287,41 @@ int main()
     Of course std::array isn’t limited to numbers as elements. Every type that can be used in a regular array can be used 
     in a std::array.
     */
+    struct House
+    {
+        int number{};
+        int stories{};
+        int roomPerStory{};
+    };
+
+    std::array<House, 3> houses{};
+
+    houses[0] = { 13, 4, 30 };
+    houses[1] = { 14, 3, 10 };
+    houses[2] = { 15, 3, 40 };
+
+    for(const auto& house : houses)
+    {
+        std::cout << "House number " << house.number << " has " << (house.stories * house.roomPerStory) << " rooms\n";
+    }
+    std::cout << std::endl;
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Summary" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    std::array is a great replacement for built-in fixed arrays. It’s efficient, in that it doesn’t use any more memory 
+    than built-in fixed arrays. The only real downside of a std::array over a built-in fixed array is a slightly more 
+    awkward syntax, that you have to explicitly specify the array length (the compiler won’t calculate it for you from 
+    the initializer, unless you also omit the type, which isn’t always possible), and the signed/unsigned issues with 
+    size and indexing. But those are comparatively minor quibbles — we recommend using std::array over built-in fixed 
+    arrays for any non-trivial array use.
+    */
+
+
 
 
 
