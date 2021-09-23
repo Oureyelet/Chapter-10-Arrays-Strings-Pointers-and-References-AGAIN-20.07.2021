@@ -1,6 +1,7 @@
 #include <array>
 #include <cstddef>
 #include <iostream>
+#include <iterator> // for std::begin and std::end
 
 int main()
 {
@@ -162,9 +163,94 @@ int main()
     std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
     //////////////////////////////////////////////////////////////////////////////////////////
     /*
-    
+    Iterating is such a common operation that all standard library containers offer direct support for iteration. 
+    Instead of calculating our own begin and end points, we can simply ask the container for the begin and end points 
+    via functions conveniently named begin() and end():
+    */
+    std::array normal_array{ 1, 2, 3 };
+
+    // Ask our array for the begin and end points (via the begin and end member functions).
+    auto normal_begin{ normal_array.begin() };
+    auto normal_end{ normal_array.end() };
+
+    for(auto p{ normal_begin }; p != normal_end; ++p)// ++ to move to next element.
+    {
+        std::cout << *p << ' ';// Indirection to get value of current element.
+    }
+    std::cout << '\n';
+
+
+    //The iterator header also contains two generic functions (std::begin and std::end) that can be used:
+    std::array normal_array_2{ 1, 2, 3 };
+
+    // Use std::begin and std::end to get the begin and end points.
+    auto normal_begin_2{ std::begin(normal_array_2) };
+    auto normal_end_2{ std::end(normal_array_2) };
+
+    for(auto p{ normal_begin_2 }; p != normal_end_2; ++p)// ++ to move to next element.
+    {
+        std::cout << *p << ' ';// Indirection to get value of current element.
+    }
+    std::cout << '\n';
+
+    /*
+    Don’t worry about the types of the iterators for now, we’ll re-visit iterators in a later chapter. 
+    The important thing is that the iterator takes care of the details of iterating through the container. 
+    All we need are four things: the begin point, the end point, operator++ to move the iterator to the next element 
+    (or the end), and operator* to get the value of the current element.
     */
 
 
-    return 0;
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Back to range-based for loops" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    All types that have begin and end member functions or can be used with std::begin and std::end are usable 
+    in range-based for-loops.
+    */
+    std::array normal_array_3{ 1, 2 ,3 };
+
+    // This does exactly the same as the loop we used before.
+    for(int i : normal_array_3)
+    {
+        std::cout << i << ' ';
+    }
+    std::cout << std::endl;
+    /*
+    Behind the scenes, the range-based for-loop calls begin() and end() of the type to iterate over. 
+    std::array has begin and end member functions, so we can use it in a range-based loop. C-style fixed arrays 
+    can be used with std::begin and std::end functions, so we can loop through them with a range-based loop as well. 
+    Dynamic arrays don’t work though, because there is no std::end function for them (because the type information 
+    doesn’t contain the array’s length).
+
+    You’ll learn how to add functions to your types later, so that they can be used with range-based for-loops too.
+
+    Range-based for-loops aren’t the only thing that makes use of iterators. They’re also used in 
+    std::sort and other algorithms. Now that you know what they are, you’ll notice they’re used quite a 
+    bit in the standard library.
+    */
+
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Iterator invalidation (dangling iterators)" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Much like pointers and references, iterators can be left “dangling” if the elements being iterated over change 
+    address or are destroyed. When this happens, we say the iterator has been invalidated. Accessing an invalidated 
+    iterator produces undefined behavior.
+
+    Some operations that modify containers (such as adding an element to a std::vector) can have the side effect of 
+    causing the elements in the container to change addresses. When this happens, existing iterators to those elements 
+    will be invalidated. Good C++ reference documentation should note which container operations may or 
+    will invalidate iterators. As an example, see the “Iterator invalidation” section of std::vector on cppreference.
+    */
+
+
+    return 0;   
 }
