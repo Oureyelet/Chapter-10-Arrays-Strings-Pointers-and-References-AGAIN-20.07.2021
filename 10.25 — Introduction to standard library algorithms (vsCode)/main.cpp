@@ -226,10 +226,54 @@ int main()
     }
     std::cout << std::endl;
 
+    
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Order of execution" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////////////
     /*
-    This often seems like the most unnecessary algorithm to new developers, because equivalent code with a 
-    range-based for-loop is shorter and easier. But there are benefits to std::for_each. Let’s compare std::for_each to a 
-    range-based for-loop.
+    Note that most of the algorithms in the algorithms library do not guarantee a particular order of execution. 
+    For such algorithms, take care to ensure any functions you pass in do not assume a particular ordering, as the 
+    order of invocation may not be the same on every compiler.
+
+    The following algorithms do guarantee sequential execution: std::for_each, std::copy, std::copy_backward, std::move, 
+    and std::move_backward.
+
+    Best practice:
+
+    Unless otherwise specified, do not assume that standard library algorithms will execute in a particular sequence. 
+    std::for_each, std::copy, std::copy_backward, std::move, and std::move_backward have sequential guarantees.
+    */
+
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Ranges in C++20" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Having to explicitly pass arr.begin() and arr.end() to every algorithm is a bit annoying. But fear not -- C++20 
+    adds ranges, which allow us to simply pass arr. This will make our code even shorter and more readable.
+    */
+   
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Conclusion" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    The algorithms library has a ton of useful functionality that can make your code simpler and more robust. 
+    We only cover a small subset in this lesson, but because most of these functions work very similarly, once 
+    you know how a few work, you can make use of most of them.
+
+    Best practice:
+
+    Favor using functions from the algorithms library over writing your own functionality to do the same thing 
     */
 
 
