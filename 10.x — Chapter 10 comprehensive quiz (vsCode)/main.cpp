@@ -18,6 +18,12 @@ struct StudentNameGrade
     int grade{};
 };
 
+bool my_sort(const StudentNameGrade& a, const StudentNameGrade& b)
+{
+    // grathers comes first
+    return a.grade > b.grade;
+}
+
 
 int main()
 {
@@ -224,21 +230,19 @@ int main()
 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    for(int i{ 0 }; i != num_of_students; i++)
+    for(int i{ 0 }; i != num_of_students; ++i)
     {
         std::cout << "Enter #" << (i+1) << ": ";
         std::cin >> dynamic_array[i].name;
         std::cin >> dynamic_array[i].grade; 
     }
 
-    std::sort(dynamic_array.begin(), dynamic_array.end());
+    std::sort(dynamic_array.begin(), dynamic_array.end(), my_sort);
 
-    for(int& i : dynamic_array)
+    for(int i{ 0 }; i != num_of_students; ++i)
     {
-        std::cout << i << '\n';
+        std::cout << dynamic_array[i].name << " got a grade of "  << dynamic_array[i].grade << '\n';
     }
-    std::cout << std::endl;
-
 
 
 
