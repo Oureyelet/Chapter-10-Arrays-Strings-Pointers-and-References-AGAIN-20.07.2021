@@ -1,12 +1,23 @@
 #include <iostream>
-#include <algorithm> // for std::shuffle
+#include <algorithm> // for std::shuffle, sort
 #include <array>
 #include <ctime>
 #include <numeric> // for std::reduce
 #include <random>
+#include <string_view>
+#include <cstdlib> // for std::size_t
+#include <limits>//for: std::cin.ignore
+
 
 //funtion prototype:
 int countTotalItems(const std::array<int, 3>&);
+
+struct StudentNameGrade
+{
+    std::string name{};
+    int grade{};
+};
+
 
 int main()
 {
@@ -166,7 +177,71 @@ int main()
 
     std::array arr_Q1{ 2, 5, 10 };
 
-    std::cout << "Total number of items: " <<  countTotalItems(arr_Q1) << ". Number of torches: " << arr_Q1[Items::torches] << '\n';
+    std::cout << "Total number of items: " <<  countTotalItems(arr_Q1) << ". Number of torches: " << arr_Q1[Items::torches] << std::endl << '\n';
+
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Question #2" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     Write the following program: Create a struct that holds a student’s first name and grade (on a scale of 0-100). 
+     Ask the user how many students they want to enter. Create a std::vector to hold all of the students. Then prompt 
+     the user for each name and grade. Once the user has entered all the names and grade pairs, sort the list by grade 
+     (highest first). Then print all the names and grades in sorted order.
+
+    For the following input:
+
+    Joe
+    82
+    Terry
+    73
+    Ralph
+    4
+    Alex
+    94
+    Mark
+    88
+
+    The output should look like this:
+
+    Alex got a grade of 94
+    Mark got a grade of 88
+    Joe got a grade of 82
+    Terry got a grade of 73
+    Ralph got a grade of 4
+
+    You can assume that names don’t contain spaces and that that input extraction doesn’t fail.
+    */
+
+    std::cout << "How many students you would like to enter? ";
+    std::size_t num_of_students{};
+    std::cin >> num_of_students;
+
+    std::vector<StudentNameGrade> dynamic_array{ num_of_students };
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    for(int i{ 0 }; i != num_of_students; i++)
+    {
+        std::cout << "Enter #" << (i+1) << ": ";
+        std::cin >> dynamic_array[i].name;
+        std::cin >> dynamic_array[i].grade; 
+    }
+
+    std::sort(dynamic_array.begin(), dynamic_array.end());
+
+    for(int& i : dynamic_array)
+    {
+        std::cout << i << '\n';
+    }
+    std::cout << std::endl;
+
+
+
+
 
     return 0;
 }
