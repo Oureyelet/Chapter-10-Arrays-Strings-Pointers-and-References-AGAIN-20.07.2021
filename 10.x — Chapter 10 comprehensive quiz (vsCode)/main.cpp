@@ -24,6 +24,22 @@ bool my_sort(const StudentNameGrade& a, const StudentNameGrade& b)
     return a.grade > b.grade;
 }
 
+void fcs_swap(int& a, int& b)
+{
+    int g{ a };
+    int f{ b };
+
+    std::cout << "After swap x = " << f << " and y = " << g << '\n';
+}
+
+void print_C_style_string(char str, char* ptr_str)
+{
+    for(ptr_str = str; *ptr_str != NULL; ptr_str++)
+    {
+        std::cout << 
+    }
+}
+
 
 int main()
 {
@@ -243,6 +259,45 @@ int main()
     {
         std::cout << dynamic_array[i].name << " got a grade of "  << dynamic_array[i].grade << '\n';
     }
+
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Question #3" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Write your own function to swap the value of two integer variables. Write a main() function to test it.
+    */
+    int x{};
+    int y{};
+
+    std::cout << "Enter x:";
+    std::cin >> x;
+    std::cout << "Enter y:";
+    std::cin >> y;
+
+    fcs_swap(x,y);
+
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Question #4" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Write a function to print a C-style string character by character. Use a pointer to step through 
+    each character of the string and print that character. Stop when you hit the null terminator. 
+    Write a main function that tests the function with the string literal “Hello, world!”.
+    */
+    char question_string[]{ "Hello, world!" };
+    char* ptr_question_str;
+
+
+
+
 
 
 
