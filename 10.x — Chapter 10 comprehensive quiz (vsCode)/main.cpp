@@ -7,6 +7,7 @@
 #include <string_view>
 #include <cstdlib> // for std::size_t
 #include <limits>//for: std::cin.ignore
+#include <cstring> // for NULL
 
 
 //funtion prototype:
@@ -32,17 +33,22 @@ void fcs_swap(int& a, int& b)
     std::cout << "After swap x = " << f << " and y = " << g << '\n';
 }
 
-void print_C_style_string(char str, char* ptr_str)
+void print_C_style_string(const char* str)
 {
-    for(ptr_str = str; *ptr_str != NULL; ptr_str++)
+    for(const char* i = str; *i != '\0'; ++i)
     {
-        std::cout << 
+        std::cout << *str;
+        ++str;
+        
     }
+
+    std::cout << '\n';
 }
 
 
 int main()
 {
+    
     std::cout << std::endl;
     //////////////////////////////////////////////////////////////////////////////////////////////////
     std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
@@ -290,14 +296,25 @@ int main()
     /*
     Write a function to print a C-style string character by character. Use a pointer to step through 
     each character of the string and print that character. Stop when you hit the null terminator. 
+   
     Write a main function that tests the function with the string literal “Hello, world!”.
     */
-    char question_string[]{ "Hello, world!" };
-    char* ptr_question_str;
+   
+    const char* question_string{ "Hello, world!" };
+
+    print_C_style_string(question_string);
 
 
-
-
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Question #5" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    What’s wrong with each of these snippets, and how would you fix it?
+    */
+    
 
 
 
