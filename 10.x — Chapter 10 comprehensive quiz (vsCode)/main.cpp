@@ -314,7 +314,106 @@ int main()
     /*
     What’s wrong with each of these snippets, and how would you fix it?
     */
+
+    /*
+    a)
+
+    int main()
+    {
+    int array[]{ 0, 1, 2, 3 };
+
+    for (std::size_t count{ 0 }; count <= std::size(array); ++count)
+    {
+        std::cout << array[count] << ' ';
+    }
+
+    std::cout << '\n';
+
+    return 0;
+    }
+    */
+    //answer is: should be "count < std::size(array)".
     
+    /*
+    b)
+
+    int main()
+    {
+    int x{ 5 };
+    int y{ 7 };
+
+    const int* ptr{ &x };
+    std::cout << *ptr << '\n';
+    *ptr = 6;
+    std::cout << *ptr << '\n';
+    ptr = &y;
+    std::cout << *ptr << '\n';
+
+    return 0;
+    }
+
+    answer: ptr is a pointer to a const int. You can’t assign the value 6 to it. You can fix this by making ptr non-const. 
+    */
+
+    /*
+    c)
+
+    void printArray(int array[])
+    {
+    for (int element : array)
+    {
+        std::cout << element << ' ';
+    }
+    }
+
+    int main()
+    {
+    int array[]{ 9, 7, 5, 3, 1 };
+
+    printArray(array);
+
+    std::cout << '\n';
+
+    return 0;
+    }
+    Answer is:
+
+    array decays to a pointer when it is passed to printArray(). Range-based for-loops can’t work with a pointer to an array 
+    because the size of the array isn’t known. One solution is to add a length parameter to function printArray(), and use a 
+    normal for loop. A better solution is to use std::array instead of built-in fixed arrays. 
+    */
+
+    /*
+    d)
+
+    int* allocateArray(const int length)
+    {
+    int temp[length]{};
+    return temp;
+    }
+    Answer:
+
+    temp is a fixed array, but length is not a compile-time constant, so we can’t use length to create a C-style array. 
+    Variable temp will also go out of scope at the end of the function, the return value will be pointing to something invalid. 
+    temp should use dynamic memory allocation or be a std::vector. 
+    */
+
+    /*
+    e)
+
+    int main()
+    {
+    double d{ 5.5 };
+    int* ptr{ &d };
+    std::cout << ptr << '\n';
+
+    return 0;
+    }
+
+    Answer is:
+    You can’t make an int pointer point at a non-int variable. ptr should be of type double*. 
+
+    */
 
 
 
