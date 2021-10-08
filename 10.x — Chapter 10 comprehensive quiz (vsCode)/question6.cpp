@@ -36,35 +36,49 @@ struct Card
     CardSuit suit{};
 };
 
-void printCard(const Card&)
-{
-    switch (rank::)
-    {
-        case CardRank::rank_2:
 
-            switch (Card::suit)
-            {
-            case CardSuit::clubs:
-                std::cout << "C" << '\n';
-                break;
-            case CardSuit::diamonds:
-                std::cout << "D" << '\n';
-                break;
-            case CardSuit::hearts:
-                std::cout << "H" << '\n';
-                break;
-            case CardSuit::spades:
-                std::cout << "S" << '\n';
-                break;
-            default:
-                break;
-            }
-            
-        break;
-    
+void printCard(const Card& op)
+{
+    switch (op.rank)
+    {
+        case CardRank::rank_2:      std::cout << '2';    break;
+        case CardRank::rank_3:      std::cout << '3';    break;
+        case CardRank::rank_4:      std::cout << '4';    break;
+        case CardRank::rank_5:      std::cout << '5';    break;
+        case CardRank::rank_6:      std::cout << '6';    break;
+        case CardRank::rank_7:      std::cout << '7';    break;
+        case CardRank::rank_8:      std::cout << '8';    break;
+        case CardRank::rank_9:      std::cout << '9';    break;
+        case CardRank::rank_10:     std::cout << 'T';    break;
+        case CardRank::rank_Jack:   std::cout << 'J';    break;
+        case CardRank::rank_Queen:  std::cout << 'Q';    break;
+        case CardRank::rank_King:   std::cout << 'K';    break;
+        case CardRank::rank_Ace:    std::cout << 'A';    break;
         default:
-        break;
+            std::cout << '?';
+            break;
     }
+
+    switch (op.suit)
+    {
+        case CardSuit::clubs:       std::cout << 'C';    break;
+        case CardSuit::diamonds:    std::cout << 'D';    break;
+        case CardSuit::hearts:      std::cout << 'H';    break;
+        case CardSuit::spades:      std::cout << 'S';    break;
+        
+        default:
+            std::cout << '?';
+            break;
+    }
+}
+
+using deck_t = std::array<Card, 52>;
+
+deck_t createDeck()
+{
+    deck_t deck{};
+
+    return deck;
 }
 
 
@@ -88,6 +102,16 @@ int main()
     c) Create a printCard() function that takes a const Card reference as a parameter and prints the card rank and 
     suit as a 2-letter code (e.g. the jack of spades would print as JS).
     */
+   
+    /*
+    d) A deck of cards has 52 cards. Create an array (using std::array) to represent the deck of cards, and initialize 
+    it with one of each card. Do this in a function named createDeck and call createDeck from main. createDeck should 
+    return the deck to main.
+    */
+
+    createDeck();
+
+
 
   
 
