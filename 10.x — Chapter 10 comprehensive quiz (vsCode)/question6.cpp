@@ -1,6 +1,8 @@
 #include <iostream>
 #include <array>
 
+namespace N{
+
 enum class CardRank
 {
     rank_2,
@@ -54,6 +56,7 @@ void printCard(const Card& op)
         case CardRank::rank_Queen:  std::cout << 'Q';    break;
         case CardRank::rank_King:   std::cout << 'K';    break;
         case CardRank::rank_Ace:    std::cout << 'A';    break;
+        
         default:
             std::cout << '?';
             break;
@@ -72,17 +75,44 @@ void printCard(const Card& op)
     }
 }
 
+// We'll need these many more times, create an aliases.
 using deck_t = std::array<Card, 52>;
+using index_type = deck_t::size_type;
 
 deck_t createDeck()
 {
     deck_t deck{};
 
+    // We could initialize each card individually, but that would be a pain.  Let's use a loop.
+
+    index_type index{ 0 };
+
+    for(int suit{ 0 }; suit < static_cast<int>(CardSuit::max_suits); ++suit)
+    {
+        for(int rank{ 0 }; rank < static_cast<int>(CardRank::max_ranks); ++rank)
+        {
+            deck[index].suit = static_cast<CardSuit>(suit);
+            deck[index].rank = static_cast<CardRank>(rank);
+            ++index;
+        }
+    }
+   
+
     return deck;
 }
 
+void printDeck(const deck_t& dc)
+{
+    for(const auto& i : dc )
+    {
+        printCard(i);
+        std::cout << ' ';
+    }
+    std::cout << std::endl;
+}
 
 
+}
 
 int main()
 {
@@ -109,7 +139,23 @@ int main()
     return the deck to main.
     */
 
-    createDeck();
+    auto deck{ N::createDeck() };
+
+    /*
+    e) Write a function named printDeck() that takes the deck as a const reference parameter and prints the cards in the deck. 
+    Use a range-based for-loop. When you can printDeck with the deck you generated in the previous task, the output should be
+    */
+
+    N::printDeck(deck);
+
+    /*
+    f) Write a function named shuffleDeck to shuffle the deck of cards using std::shuffle. 
+    Update your main function to shuffle the deck and print out the shuffled deck.
+
+    Reminder: Only seed your random number generator once.
+    */
+
+    
 
 
 
