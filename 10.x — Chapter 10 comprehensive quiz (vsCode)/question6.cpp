@@ -4,10 +4,13 @@
 #include <random> // for  std::mt19937
 #include <ctime>
 #include <cassert> 
+#include <vector>
+#include <string>
+#include <iomanip> // for std::ws
+#include <limits> // for ignor cin
 
 namespace N
 {
-
     enum class CardRank
     {
         rank_2,
@@ -110,6 +113,7 @@ namespace N
     {
         for(const auto& i : dc )
         {
+            
             printCard(i);
             std::cout << ' ';
         }
@@ -147,11 +151,45 @@ namespace N
 
     }
 
+    namespace MyRandom
+    {
+        // Initialize our mersenne twister with a random seed based on the clock (once at system startup)
+        std::mt19937 mersenne{ static_cast<std::mt19937::result_type>(std::time(nullptr)) };
+    }
+
+    int getRandomNumber(int min, int max)
+    {
+        std::srand(static_cast<unsigned int>(std::time(nullptr)));// set initial seed value to system clock
+
+        static constexpr double fraction { 1.0 / (RAND_MAX + 1.0) };  // static used for efficiency, so we only calculate this value once
+        // evenly distribute the random number across our range
+        return min + static_cast<int>((max - min + 1) * (std::rand() * fraction));
+    }
+
     bool playBlackjack(deck_t& shuffled_deck)
     {
-        int dealer_score{ 0 };
-        int player_score{ 0 };
+        deck_t dealer_score{ static_cast<int>(  ) };
+        deck_t player_score{ 0 };
+        const deck_t max_score{21};
+        std::string dealer_name{"Dealer"};
+        std::string player_name;
+        //std::vector<std::string> string_array(number_of_names);
 
+
+        std::cout << "Welcome to Blackjack" << '\n';
+        std::cout << "Enter your name: ";
+        std::cin >> player_name;
+
+        if()
+        
+
+        
+
+
+
+        return 0;
+        
+        
         
     }
 }
