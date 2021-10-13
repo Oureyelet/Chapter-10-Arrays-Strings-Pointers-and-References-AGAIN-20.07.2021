@@ -166,11 +166,12 @@ namespace N
         return min + static_cast<int>((max - min + 1) * (std::rand() * fraction));
     }
 
-    bool playBlackjack(deck_t& shuffled_deck)
+    bool playBlackjack(deck_t& deck)
     {
-        deck_t dealer_score{ static_cast<int>(  ) };
-        deck_t player_score{ 0 };
-        const deck_t max_score{21};
+        int dealer_score{ 0 };
+        int player_score{ 0 };
+
+        const int max_score{ 21 };
         std::string dealer_name{"Dealer"};
         std::string player_name;
         //std::vector<std::string> string_array(number_of_names);
@@ -180,7 +181,23 @@ namespace N
         std::cout << "Enter your name: ";
         std::cin >> player_name;
 
-        if()
+        //auto Blackjack_deck{ shuffled_deck };
+
+        
+
+        int random_NR{ N::getRandomNumber(1, 52) };
+
+        //N::printCard( Blackjack_deck );
+
+        index_type index{ 0 };
+
+        for(int i{ 0 }; i <= 52; i++)
+        {
+            std::cout << "The dealer gets one card to start: " << N::printCard()
+            //std::cout << "The player gets two cards to start: " << Blackjack_deck[random_NR] << ',' << Blackjack_deck[random_NR];
+        }
+
+        
         
 
         
