@@ -166,7 +166,7 @@ namespace N
         return min + static_cast<int>((max - min + 1) * (std::rand() * fraction));
     }
 
-    bool playBlackjack(deck_t& deck)
+    bool playBlackjack(const deck_t& deck)
     {
         int dealer_score{ 0 };
         int player_score{ 0 };
@@ -174,30 +174,32 @@ namespace N
         const int max_score{ 21 };
         std::string dealer_name{"Dealer"};
         std::string player_name;
-        //std::vector<std::string> string_array(number_of_names);
-
 
         std::cout << "Welcome to Blackjack" << '\n';
         std::cout << "Enter your name: ";
         std::cin >> player_name;
 
-        //auto Blackjack_deck{ shuffled_deck };
-
-        
-
         int random_NR{ N::getRandomNumber(1, 52) };
-
-        //N::printCard( Blackjack_deck );
 
         index_type index{ 0 };
 
-        for(int i{ 0 }; i <= 52; i++)
+        for(const auto& i : deck )
         {
-            std::cout << "The dealer gets one card to start: " << N::printCard()
+            
+            N::printCard(i);
+            std::cout << ' ';
+            break;
+        }
+        std::cout << std::endl;
+
+
+        for(int i{ 0 }; i <= deck.size(); i++)
+        {
+            std::cout << "The dealer gets one card to start: " << deck[()]
             //std::cout << "The player gets two cards to start: " << Blackjack_deck[random_NR] << ',' << Blackjack_deck[random_NR];
         }
 
-        
+        deck.
         
 
         
@@ -238,14 +240,14 @@ int main()
     return the deck to main.
     */
 
-    auto deck{ N::createDeck() };
+    //auto deck{ N::createDeck() };
 
     /*
     e) Write a function named printDeck() that takes the deck as a const reference parameter and prints the cards in the deck. 
     Use a range-based for-loop. When you can printDeck with the deck you generated in the previous task, the output should be
     */
 
-    N::printDeck(deck);
+    //N::printDeck(deck);
 
     /*
     f) Write a function named shuffleDeck to shuffle the deck of cards using std::shuffle. 
@@ -254,9 +256,9 @@ int main()
     Reminder: Only seed your random number generator once.
     */
 
-    N::shuffleDeck(deck);
+    //N::shuffleDeck(deck);
 
-    N::printDeck(deck);
+    //N::printDeck(deck);
 
     /*
     g) Write a function named getCardValue() that returns the value of a Card 
@@ -317,7 +319,13 @@ int main()
     c) In actual blackjack, if the player and dealer have the same score (and the player has not gone bust), the result is a 
     tie and neither wins. Describe how you’d modify the above program to account for this.
     */
+    auto blackjack_Deck{ N::createDeck() };
 
+    N::printDeck(blackjack_Deck);
+
+    N::shuffleDeck(blackjack_Deck);
+
+    N::playBlackjack(blackjack_Deck);
 
 
     
