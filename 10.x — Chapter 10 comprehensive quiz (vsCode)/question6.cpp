@@ -46,6 +46,11 @@ namespace N
         CardSuit suit{};
     };
 
+    struct Player
+    {
+        int score{};
+    }
+
 
     void printCard(const Card& op)
     {
@@ -166,12 +171,71 @@ namespace N
         return min + static_cast<int>((max - min + 1) * (std::rand() * fraction));
     }
 
+    int dealer_score{ 0 };
+    int player_score{ 0 };
+
+    // Maximum score before losing.
+    constexpr int max_score{ 21 };
+
+    // Minimum score that the dealer has to have.
+    constexpr int minimumDealerScore{ 17 };
+
+    bool playerWantsHit()
+    {
+        while (true)
+        {
+            std::cout << "(h) to hit, or (s) to stand: ";
+
+            char ch{};
+            std::cin >> ch;
+
+            switch (ch)
+            {
+            case 'h':
+                return true;
+            case 's':
+                return false;
+            }
+        }
+    }
+
+    // Returns true if the player went bust. False otherwise.
+    bool playerTurn(const deck_t& deck, index_type& nextCardIndex, Player& player)
+    {
+        while (true)
+        {
+            if (player.score > N::max_score)
+            {
+                // This can happen even before the player had a choice if they drew 2
+                // aces.
+                std::cout << "You busted!\n";
+                return true;
+            }
+            else
+            {
+                if( playerWantsHit() )
+                {
+                    int cardValue{ N::getCardValue( deck.at(nextCardIndex++) ) };
+                    player.score += cardValue;
+                    std::cout << "You were dealt a " << cardValue << " and now have " << player.score << '\n';
+                }
+                else
+                {
+                    // The player didn't go bust.
+                    return false;
+                }
+            }
+        }
+    }
+
+    // Returns true if the dealer went bust. False otherwise.
+    bool dealTurn(const deck_t& deck, index_type& nextCardIndex, Player& dealer)
+    {
+        
+    }
+
     bool playBlackjack(const deck_t& deck)
     {
-        int dealer_score{ 0 };
-        int player_score{ 0 };
-
-        const int max_score{ 21 };
         std::string dealer_name{"Dealer"};
         std::string player_name;
 
@@ -183,33 +247,7 @@ namespace N
 
         index_type index{ 0 };
 
-        for(const auto& i : deck )
-        {
-            
-            N::printCard(i);
-            std::cout << ' ';
-            break;
-        }
-        std::cout << std::endl;
-
-
-        for(int i{ 0 }; i <= deck.size(); i++)
-        {
-            std::cout << "The dealer gets one card to start: " << deck[()]
-            //std::cout << "The player gets two cards to start: " << Blackjack_deck[random_NR] << ',' << Blackjack_deck[random_NR];
-        }
-
-        deck.
-        
-
-        
-
-
-
         return 0;
-        
-        
-        
     }
 }
 
