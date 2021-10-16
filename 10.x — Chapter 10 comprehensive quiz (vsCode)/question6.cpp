@@ -5,9 +5,6 @@
 #include <ctime>
 #include <cassert> 
 #include <vector>
-#include <string>
-#include <iomanip> // for std::ws
-#include <limits> // for ignor cin
 
 namespace N
 {
@@ -49,7 +46,7 @@ namespace N
     struct Player
     {
         int score{};
-    }
+    };
 
 
     void printCard(const Card& op)
@@ -156,24 +153,6 @@ namespace N
 
     }
 
-    namespace MyRandom
-    {
-        // Initialize our mersenne twister with a random seed based on the clock (once at system startup)
-        std::mt19937 mersenne{ static_cast<std::mt19937::result_type>(std::time(nullptr)) };
-    }
-
-    int getRandomNumber(int min, int max)
-    {
-        std::srand(static_cast<unsigned int>(std::time(nullptr)));// set initial seed value to system clock
-
-        static constexpr double fraction { 1.0 / (RAND_MAX + 1.0) };  // static used for efficiency, so we only calculate this value once
-        // evenly distribute the random number across our range
-        return min + static_cast<int>((max - min + 1) * (std::rand() * fraction));
-    }
-
-    int dealer_score{ 0 };
-    int player_score{ 0 };
-
     // Maximum score before losing.
     constexpr int max_score{ 21 };
 
@@ -231,23 +210,52 @@ namespace N
     // Returns true if the dealer went bust. False otherwise.
     bool dealTurn(const deck_t& deck, index_type& nextCardIndex, Player& dealer)
     {
-        
+        while (dealer.score < minimumDealerScore)
+        {
+            int cardValue{ getCardValue( deck.at(nextCardIndex++) ) };
+            dealer.score += cardValue;
+            std::cout << "The dealer turned up a " << cardValue << " and now has " << dealer.score << '\n';
+        }
+
+        // If the dealer's score is too high, they went bust.
+        if(dealer.score > max_score)
+        {
+            std::cout << "The dealer busted!\n";
+            return true;
+        }
+        return false;
     }
 
     bool playBlackjack(const deck_t& deck)
     {
-        std::string dealer_name{"Dealer"};
-        std::string player_name;
+        // Index of the card that will be drawn next. This cannot overrun
+        // the array, because a player will lose before all cards are used up.
+        index_type nextCardIndex{ 0 };
 
-        std::cout << "Welcome to Blackjack" << '\n';
-        std::cout << "Enter your name: ";
-        std::cin >> player_name;
+        Player dealer{ getCardValue( deck.at(nextCardIndex++) ) };
 
-        int random_NR{ N::getRandomNumber(1, 52) };
+        // The dealer's card is face up, the player can see it.
+        std::cout << "The dealer is showing: " << dealer.score << '\n';
 
-        index_type index{ 0 };
+        // Create the player and give them 2 cards.
+        Player player{ getCardValue(deck.at(nextCardIndex)) + getCardValue(deck.at(nextCardIndex+1)) };
+        nextCardIndex += 2;
 
-        return 0;
+        std::cout << "You have: " << player.score << '\n';
+
+        if(playerTurn(deck, nextCardIndex, player))
+        {
+            // The player went bust.
+            return false;
+        }
+
+        if(dealTurn(deck, nextCardIndex, dealer))
+        {
+            // The dealer went bust, the player wins.
+            return true;
+        }
+
+        return ( player.score > dealer.score );
     }
 }
 
@@ -357,20 +365,18 @@ int main()
     c) In actual blackjack, if the player and dealer have the same score (and the player has not gone bust), the result is a 
     tie and neither wins. Describe how you’d modify the above program to account for this.
     */
-    auto blackjack_Deck{ N::createDeck() };
+    auto deck{ N::createDeck() };
 
-    N::printDeck(blackjack_Deck);
+    N::shuffleDeck(deck);
 
-    N::shuffleDeck(blackjack_Deck);
-
-    N::playBlackjack(blackjack_Deck);
-
-
-    
-
-
-
-  
+    if(N::playBlackjack(deck))
+    {
+        std::cout << "You win!\n";
+    }
+    else
+    {
+        std::cout << "You lose!\n";
+    }
 
     return 0;
 }   
